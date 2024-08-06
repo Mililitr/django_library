@@ -1,0 +1,34 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Librarian Dashboard{% endblock %}
+
+{% block content %}
+<h2>Librarian Dashboard</h2>
+<h3>Debtors</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Book Title</th>
+            <th>Borrowed Date</th>
+            <th>Days on Loan</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for debtor in debtors %}
+        {% for book in debtor.borrowed_books.all %}
+        <tr>
+            <td>{{ debtor.username }}</td>
+            <td>{{ debtor.first_name }} {{ debtor.last_name }}</td>
+            <td>{{ debtor.address }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.borrowed_date }}</td>
+            <td>{{ book.borrowed_date|timesince }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

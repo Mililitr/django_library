@@ -1,0 +1,44 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Book List{% endblock %}
+
+{% block content %}
+<h2>Book List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.genre }}</td>
+            <td>
+                {% if book.borrower == user %}
+                    <a href="{% url 'return_book' book.id %}" class="btn btn-warning">Return</a>
+                {% else %}
+                    <a href="{% url 'borrow_book' book.id %}" class="btn btn-success">Borrow</a>
+                {% endif %}
+                <button class="btn btn-secondary" onclick="copyToClipboard('{{ book.title }}')">Copy</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Title copied to clipboard: ' + text);
+        }, function() {
+            alert('Failed to copy title to clipboard');
+        });
+    }
+</script>
+{% endblock %}

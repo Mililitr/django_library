@@ -1,0 +1,25 @@
+{% extends 'library/base.html' %}
+
+{% block title %}My Books{% endblock %}
+
+{% block content %}
+<h2>My Books</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Borrowed Date</th>
+            <th>Days on Loan</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.borrowed_date }}</td>
+            <td>{{ book.borrowed_date|timesince }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
